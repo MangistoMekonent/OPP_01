@@ -8,3 +8,7 @@ class Call:
         elif self.source > self.destination:
             self.direction = False
         self.assignment = callList[5]
+
+    def toList(self):
+        return ['Elevator call', self.time, self.source,
+                self.destination, 0, self.assignment]
