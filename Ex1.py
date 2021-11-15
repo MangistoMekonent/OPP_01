@@ -31,7 +31,7 @@ def main(buildingFile, callsFile, outputFile):
 
     with open(outputFile, 'w') as o:
         outputWriter = csv.writer(o)
-        for call in calls:
+        for call in sorted(outputCalls, key=lambda c: c.time):
             outputWriter.writerow(call.toList())
 
 if __name__ == '__main__':

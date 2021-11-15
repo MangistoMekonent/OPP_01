@@ -1,6 +1,6 @@
 class Call:
     def __init__(self, callList):
-        self.time = callList[1]
+        self.time = float(callList[1])
         self.source = callList[2]
         self.destination = callList[3]
         if self.source < self.destination:
