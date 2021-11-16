@@ -1,7 +1,7 @@
 class Call:
     def __init__(self, callList):
         self.time = float(callList[1])
-        self.source = int(lcallList[2])
+        self.source = int(callList[2])
         self.destination = int(callList[3])
         if self.source < self.destination:
             self.direction = True
