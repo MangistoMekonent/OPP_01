@@ -6,3 +6,4 @@ the goal of this assiment is to crate an offline Algorithm dispatch elevatores f
 by using Activity-Selection Algorithem we war able to complite the assignment.
 
 ## Activity-Algorithm 
+![pseudo code](Activity-Selection.png)
