@@ -84,12 +84,13 @@ def main(buildingFile, callsFile, outputFile):
 # Returns the time at which an elevator will finish servicing a call
 # if it started at a specific floor.
 def callFinishTime(elevator, call, floor):
-    return (call.time + elevator.startTime +
-            (elevator.speed * abs(floor - call.source)) +
-            elevator.stopTime + elevator.openTime + elevator.closeTime +
+    return (elevator.closeTime + elevator.startTime +
+            (abs(floor - call.source)/elevator.speed ) +
+            elevator.stopTime + elevator.openTime  +
+            elevator.closeTime +
             elevator.startTime +
-            (elevator.speed * abs(call.source - call.destination)) +
-            elevator.stopTime + elevator.openTime + elevator.closeTime)
+            ( abs(call.source - call.destination)/elevator.speed ) +
+            elevator.stopTime + elevator.openTime )
 
 if __name__ == '__main__':
     main(sys.argv[1], sys.argv[2], sys.argv[3])
