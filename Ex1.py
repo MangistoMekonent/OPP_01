@@ -16,14 +16,14 @@ def main(buildingFile, callsFile, outputFile):
 
     # Each Elevator is added to the dictionary with its parameters
     # gathered from the JSON description, with the ID as the key.
-    elevators = {elevator['_id']: Elevator(elevator['_speed'],
-                                           elevator['_minFloor'],
-                                           elevator['_maxFloor'],
-                                           elevator['_closeTime'],
-                                           elevator['_openTime'],
-                                           elevator['_startTime'],
-                                           elevator['_stopTime'])
-                 for elevator in buildingData['_elevators']}
+    elevators = [Elevator(elevator['_speed'],
+                          elevator['_minFloor'],
+                          elevator['_maxFloor'],
+                          elevator['_closeTime'],
+                          elevator['_openTime'],
+                          elevator['_startTime'],
+                          elevator['_stopTime'])
+                 for elevator in buildingData['_elevators']]
 
     # Read the calls from the input file.
     calls = []
@@ -40,7 +40,8 @@ def main(buildingFile, callsFile, outputFile):
 
     outputCalls = []
     while (calls != []):
-        for id, elevator in elevators.items():
+        for i in range(len(elevators)):
+            elevator = elevators[i]
             floor = 0 # Destination floor of the last call assigned.
             finishTime = 0 # Finish time of the last path.
             
@@ -68,7 +69,7 @@ def main(buildingFile, callsFile, outputFile):
                 # Remove this call from the input list and add it to the
                 # output list with an assignment.
                 calls.remove(firstCall)
-                firstCall.assignment = id
+                firstCall.assignment = i
                 outputCalls.append(firstCall)
                 for call in calls:
                     # Only assign this call to this elevator if its
@@ -90,7 +91,7 @@ def main(buildingFile, callsFile, outputFile):
                         else:
                             floor = call.destination
                             calls.remove(call)
-                            call.assignment = id
+                            call.assignment = i
                             outputCalls.append(call)
                     # Since input calls are sorted chronologically, we
                     # know that if we've reached a call which doesn't

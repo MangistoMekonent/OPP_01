@@ -1,7 +1,6 @@
 # The Elevator class represents a single elevator in the building,
 # including all the parameters supplied for elevators in the JSON
-# building description except for the ID (it is used as the key in the
-# dictionary containing the elevators).
+# building description except for the ID since it isn't used.
 
 class Elevator:
     def __init__(self, speed, minFloor, maxFloor, closeTime,
