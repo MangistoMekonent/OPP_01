@@ -1,19 +1,31 @@
 # Elevator routing system
-*OOP 2021 course assignment
+*OOP 2021 course assignment 1
 
-the goal of this assiment is to crate an offline Algorithm in-order dispatch elevatores to answer the calls ,so the wait time is minimal.
+The goal of this assignment is to create an offline algorithm
+assigning smart elevators to calls.
 
-by using Activity-Selection Algorithem we war able to complite the assignment.
+We have consulted the following sources for reference and inspiration
+when designing the algorithm and understanding the issue it solves:
 
-## Activity-Algorithm 
-![pseudo code](Activity-Selection.png)
-## Offline Discription Of the Algorithm 
+https://thesai.org/Downloads/Volume10No2/Paper_3-Smart_Buildings_Elevator_with_Intelligent_Control.pdf
+https://dergipark.org.tr/tr/download/article-file/539296
+https://gist.github.com/benbuckman/3150822
 
-1. When there are calls from several floors, all elevators will be evenly divided by the number of calls.
+## Algorithm description
 
-2. If there is an elevator in a rest position on the floor from which a call was made, that elevator will be embedded and start moving to Passed the destination. 
-(If there are intermediate floors from which calls were also made to the destination in the direction of the original destination of the elevator, the elevator will stop there as well.)
-
-3. If there are calls from several floors and there is no elevator on those floors, and these floors are not mezzanines: an elevator will reach the floor from which the call was made and on the way to its destination floor it will stop at mezzanines from which calls were made.
-
-4. (If there is an elevator 1, the elevator first goes up to the top floor and picks up people who go up, and then you start going down to the entrance floor and pick up people on their way to the destination floor.)
+While there are calls left (in the input):
+1. Choose the next (or first) elevator.
+2. Assign the current floor and finish time to 0.
+3. Iterate over the calls until a call which occurs before the last
+   finish time is found, and assign it the current elevator (removing
+   it from the input list).
+   Calculate the finish time according to this call (this will be the
+   last call in the current path), assign the floor to the destination
+   floor of this call and the direction to the direction of the call.
+4. Iterate over the rest of the calls.
+   If a call is in the same direction of the call and its source and
+   destination are within the bounds of the first call, assign the
+   elevator and record the floor as with the first call.
+   If a call occurs after the finish time of the first call, stop
+   iteration (to prevent needlessly iterating over all of the calls).
+5. If there are elevators left, go back to step 1.
